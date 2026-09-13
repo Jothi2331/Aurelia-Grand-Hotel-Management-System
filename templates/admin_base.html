@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="admin">
+<aside class="sidebar">
+    <h2>AURELIA</h2><small>HOTEL OPERATIONS</small>
+    <nav><a href="/admin">Dashboard</a><a href="/admin/rooms">Rooms</a><a href="/admin/bookings">Bookings</a><a href="/">Hotel Website</a></nav>
+    <div class="bottom"><a href="/admin/logout">Sign Out</a></div>
+</aside>
+<main class="admin-main">{% block admin_content %}{% endblock %}</main>
+</div>
+{% endblock %}

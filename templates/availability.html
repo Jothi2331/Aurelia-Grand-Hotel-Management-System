@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Available Rooms — Aurelia Grand{% endblock %}
+{% block body %}
+<div class="inner-nav"><a class="logo" href="/">AURELIA<small>GRAND HOTEL</small></a><a href="/">← Back to Hotel</a></div>
+<header class="inner-head"><div class="container"><div class="eyebrow">YOUR STAY</div><h1>Choose your room.</h1><p>{{ check_in }} → {{ check_out }} · {{ nights }} night(s) · {{ guests }} guest(s)</p></div></header>
+<main class="container cards-list">
+{% for room in rooms %}
+<article class="result">
+    <img src="{{ room['image'] }}" alt="{{ room['room_type'] }}">
+    <div class="result-body">
+        <div><div class="eyebrow">ROOM {{ room["room_number"] }} · {{ room["view_type"] }}</div><h2>{{ room["room_type"] }}</h2><p>{{ room["description"] }}</p><p>{{ room["bed_type"] }} · Up to {{ room["capacity"] }} guests</p></div>
+        <div class="result-action"><small>FROM</small><strong>₹{{ "{:,.0f}".format(room["price"]) }}</strong><small>per night</small>
+            <form action="/book/{{ room['room_id'] }}" method="POST">
+                <input type="hidden" name="check_in" value="{{ check_in }}"><input type="hidden" name="check_out" value="{{ check_out }}"><input type="hidden" name="guests" value="{{ guests }}">
+                <button type="submit">Select Room →</button>
+            </form>
+        </div>
+    </div>
+</article>
+{% else %}
+<div class="panel"><h2>No rooms available.</h2><p>Please try a different date range.</p></div>
+{% endfor %}
+</main>
+{% endblock %}

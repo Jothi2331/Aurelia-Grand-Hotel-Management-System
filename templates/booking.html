@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Complete Booking — Aurelia Grand{% endblock %}
+{% block body %}
+<div class="inner-nav"><a class="logo" href="/">AURELIA<small>GRAND HOTEL</small></a><a href="/">Hotel Home</a></div>
+<main class="container booking-page">
+<div class="booking-grid">
+    <section class="booking-summary"><img src="{{ room['image'] }}"><div class="pad"><div class="eyebrow">YOUR ROOM</div><h1>{{ room["room_type"] }}</h1><p>{{ room["description"] }}</p><p>{{ check_in }} → {{ check_out }} · {{ nights }} night(s) · {{ guests }} guest(s)</p><div class="price">Total ₹{{ "{:,.0f}".format(total) }}</div></div></section>
+    <section class="guest-form"><div class="eyebrow">GUEST DETAILS</div><h2>Complete your reservation.</h2>
+        <form action="/confirm/{{ room['room_id'] }}" method="POST">
+            <input type="hidden" name="check_in" value="{{ check_in }}"><input type="hidden" name="check_out" value="{{ check_out }}"><input type="hidden" name="guests" value="{{ guests }}">
+            <label>Full Name<input name="name" required></label>
+            <label>Phone Number<input name="phone" required></label>
+            <label>Email<input name="email" type="email"></label>
+            <button class="primary" type="submit">Confirm Reservation →</button>
+        </form>
+    </section>
+</div>
+</main>
+{% endblock %}

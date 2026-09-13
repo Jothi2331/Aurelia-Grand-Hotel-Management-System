@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %}Aurelia Grand — Chennai{% endblock %}
+{% block body %}
+<nav class="topnav">
+    <a class="logo" href="/">AURELIA<small>GRAND HOTEL · CHENNAI</small></a>
+    <div class="navlinks">
+        <a href="#about">About</a><a href="#rooms">Rooms</a><a href="#experiences">Experiences</a><a href="#gallery">Gallery</a><a href="#location">Location</a>
+        <a class="nav-admin" href="/admin/login">Admin Login</a>
+        <a class="nav-book" href="#booking">Book Now</a>
+    </div>
+</nav>
+
+<header class="hero">
+    <div class="hero-content">
+        <div class="eyebrow">A LUXURY CITY RETREAT · CHENNAI</div>
+        <h1>Where every stay<br><em>feels exceptional.</em></h1>
+        <p>Contemporary rooms, considered dining and warm hospitality — designed for memorable stays in the heart of Chennai.</p>
+        <a class="hero-cta" href="#rooms">Explore Aurelia Grand →</a>
+    </div>
+</header>
+
+<section class="booking-wrap" id="booking">
+<div class="container">
+    {% with messages=get_flashed_messages(with_categories=true) %}
+        {% for category,message in messages %}<div class="flash">{{ message }}</div>{% endfor %}
+    {% endwith %}
+    <div class="booking-box">
+        <div><div class="eyebrow">DIRECT RESERVATION</div><h2>Plan your stay.</h2></div>
+        <form class="booking-form" action="/availability" method="POST">
+            <label>Check-in<input type="date" name="check_in" required></label>
+            <label>Check-out<input type="date" name="check_out" required></label>
+            <label>Guests<select name="guests"><option>1</option><option selected>2</option><option>3</option><option>4</option></select></label>
+            <button type="submit">Check Availability →</button>
+        </form>
+    </div>
+</div>
+</section>
+
+<section class="section" id="about">
+<div class="container intro-grid">
+    <div class="intro">
+        <div class="eyebrow">WELCOME TO AURELIA</div>
+        <h2>Luxury with a quieter point of view.</h2>
+        <p class="lead">A refined stay shaped around comfort, space and thoughtful service.</p>
+        <p>Aurelia Grand is a fictional premium hotel concept created for this Hotel Management System project. Its design is inspired by contemporary luxury hospitality websites while keeping its own visual identity.</p>
+        <div class="facts"><div><b>24/7</b><span>Front Desk</span></div><div><b>4</b><span>Room Categories</span></div><div><b>3</b><span>Signature Experiences</span></div></div>
+    </div>
+    <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=1400&q=90" alt="Luxury hotel lobby">
+</div>
+</section>
+
+<section class="section dark" id="rooms">
+<div class="container">
+    <div class="section-head"><div><div class="eyebrow">ROOMS & SUITES</div><h2>Stay beautifully.</h2></div><p>Elegant rooms, premium comfort and carefully selected views for every kind of stay.</p></div>
+    <div class="room-grid">
+        {% for room in rooms %}
+        <article class="room-card">
+            <img src="{{ room['image'] }}" alt="{{ room['room_type'] }}">
+            <div class="room-content">
+                <div class="room-top">
+                    <div><div class="eyebrow">{{ room["view_type"] }}</div><h3>{{ room["room_type"] }}</h3></div>
+                    <div class="price">₹{{ "{:,.0f}".format(room["price"]) }}<small>/night</small></div>
+                </div>
+                <p>{{ room["description"] }}</p>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</div>
+</section>
+
+<section class="section" id="experiences">
+<div class="container">
+    <div class="section-head"><div><div class="eyebrow">SIGNATURE EXPERIENCES</div><h2>More than a room.</h2></div><p>Wellness, dining and rooftop moments designed to make the stay feel complete.</p></div>
+    <div class="experience-grid">
+        <article class="exp-card"><img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=90"><div class="exp-copy"><span>WELLNESS</span><h3>The Still Spa</h3><p>Restorative treatments in a calm, contemporary setting.</p></div></article>
+        <article class="exp-card"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=90"><div class="exp-copy"><span>DINING</span><h3>Ember & Leaf</h3><p>Modern dining inspired by coastal Tamil flavours.</p></div></article>
+        <article class="exp-card"><img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1200&q=90"><div class="exp-copy"><span>ROOFTOP</span><h3>Afterlight</h3><p>Poolside evenings with a view across the city.</p></div></article>
+    </div>
+</div>
+</section>
+
+<section class="section" id="gallery">
+<div class="container">
+    <div class="section-head"><div><div class="eyebrow">GALLERY</div><h2>A glimpse inside.</h2></div></div>
+    <div class="gallery-grid">
+        <img class="big" src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1400&q=90">
+        <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=1000&q=90">
+        <img src="https://images.unsplash.com/photo-1591088398332-8a7791972843?auto=format&fit=crop&w=1000&q=90">
+        <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1000&q=90">
+        <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1000&q=90">
+    </div>
+</div>
+</section>
+
+<section class="section map-section" id="location">
+<div class="container map-grid">
+    <div><div class="eyebrow">CHENNAI · INDIA</div><h2>In the city.<br>Out of the noise.</h2><p>Demo location: Nungambakkam, Chennai. This location is used only for the project presentation.</p></div>
+    <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=80.22%2C13.045%2C80.275%2C13.085&amp;layer=mapnik"></iframe>
+</div>
+</section>
+
+<footer class="footer">
+<div class="container footer-grid">
+    <div><h3>AURELIA</h3><p>Grand Hotel · Chennai</p></div>
+    <div><span>EXPLORE</span><a href="#about">About</a><a href="#rooms">Rooms</a><a href="#experiences">Experiences</a></div>
+    <div><span>RESERVE</span><a href="#booking">Book a Stay</a><a href="#location">Location</a></div>
+    <div><span>STAFF</span><a href="/admin/login">Admin Login</a><p>Fictional hotel website created for a Hotel Management System project.</p></div>
+</div>
+</footer>
+{% endblock %}

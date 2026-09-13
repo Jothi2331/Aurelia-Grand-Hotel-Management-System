@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Admin Login — Aurelia Grand{% endblock %}
+{% block body %}
+<main class="login-page">
+<div class="login-photo"></div>
+<section class="login-panel"><div class="login-box">
+    <div class="eyebrow">AURELIA GRAND · STAFF PORTAL</div><h1>Welcome back.</h1><p>Manage rooms, bookings and hotel operations.</p>
+    {% if error %}<div class="error">{{ error }}</div>{% endif %}
+    <form method="POST">
+        <label>Username<input name="username" required></label>
+        <label>Password<input name="password" type="password" required></label>
+        <button type="submit">Login to Dashboard →</button>
+    </form>
+    <p style="margin-top:25px;font-size:11px;color:#777">Demo: admin / admin123</p>
+    <a href="/" style="font-size:10px">← Back to Website</a>
+</div></section>
+</main>
+{% endblock %}

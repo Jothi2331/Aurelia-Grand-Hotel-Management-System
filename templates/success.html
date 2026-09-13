@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Booking Confirmed — Aurelia Grand{% endblock %}
+{% block body %}
+<main class="success">
+<section class="success-card">
+    <div class="eyebrow">RESERVATION CONFIRMED</div>
+    <h1>We look forward to welcoming you, {{ booking["customer_name"] }}.</h1>
+    <p>Your reservation at Aurelia Grand has been created successfully.</p>
+
+    {% if email_sent %}
+    <div style="padding:12px 14px;background:#e8f4ec;color:#24583b;margin:20px 0;font-size:13px;">
+        ✓ Booking confirmation email sent to {{ booking["email"] }}.
+    </div>
+    {% else %}
+    <div style="padding:12px 14px;background:#fff3dc;color:#77541d;margin:20px 0;font-size:13px;">
+        Booking confirmed. Email was not sent because Gmail SMTP is not configured yet.
+    </div>
+    {% endif %}
+
+    <div class="success-grid">
+        <div><span>Booking ID</span><b>#AG{{ "%04d"|format(booking["booking_id"]) }}</b></div>
+        <div><span>Room</span><b>{{ booking["room_number"] }} · {{ booking["room_type"] }}</b></div>
+        <div><span>Check-in</span><b>{{ booking["check_in"] }}</b></div>
+        <div><span>Check-out</span><b>{{ booking["check_out"] }}</b></div>
+        <div><span>Guests</span><b>{{ booking["guests"] }}</b></div>
+        <div><span>Total</span><b>₹{{ "{:,.0f}".format(booking["total_amount"]) }}</b></div>
+    </div>
+
+    <div style="background:#f6f1e8;padding:24px;margin:28px 0;">
+        <div class="eyebrow">PAYMENT</div>
+        <h2 style="font-family:'Playfair Display';font-size:34px;margin:8px 0 10px;">Pay with Google Pay / UPI</h2>
+        <p style="font-size:13px;line-height:1.7;">
+            On Android mobile, use the Google Pay button. If it is not supported by your browser,
+            use the standard UPI button.
+        </p>
+
+        <a class="primary" href="{{ gpay_link }}" style="display:inline-block;margin-right:8px;">Open Google Pay</a>
+        <a class="primary" href="{{ upi_link }}" style="display:inline-block;background:#b88b57;">Open UPI App</a>
+
+        <p style="font-size:11px;color:#777;margin-top:18px;">
+            Demo UPI ID: {{ upi_id }}. Replace it in the .env file with your real UPI ID before testing payment.
+        </p>
+        <p style="font-size:10px;color:#8a6d52;">
+            Note: this direct UPI link opens the payment app, but the website cannot securely confirm whether payment succeeded without a payment gateway callback.
+        </p>
+    </div>
+
+    <a class="primary" href="/">Return to Hotel</a>
+</section>
+</main>
+{% endblock %}

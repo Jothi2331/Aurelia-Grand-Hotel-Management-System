@@ -1,0 +1,12 @@
+{% extends "admin_base.html" %}
+{% block title %}Manage Rooms — Aurelia Grand{% endblock %}
+{% block admin_content %}
+<div class="eyebrow">ROOM OPERATIONS</div><h1>Rooms.</h1><p>Update room readiness, cleaning and maintenance status.</p>
+<div class="room-admin-grid">
+{% for room in rooms %}
+<article class="room-admin"><img src="{{ room['image'] }}"><div class="pad"><div class="eyebrow">ROOM {{ room["room_number"] }}</div><h2>{{ room["room_type"] }}</h2><p>{{ room["bed_type"] }} · {{ room["view_type"] }}</p><b>₹{{ "{:,.0f}".format(room["price"]) }}/night</b><p>Status: <span class="status">{{ room["status"] }}</span></p>
+{% if room["status"] != "Occupied" %}<form action="/admin/rooms/{{ room['room_id'] }}" method="POST"><select name="status"><option {% if room["status"]=="Available" %}selected{% endif %}>Available</option><option {% if room["status"]=="Cleaning" %}selected{% endif %}>Cleaning</option><option {% if room["status"]=="Maintenance" %}selected{% endif %}>Maintenance</option></select><button type="submit">Update</button></form>{% endif %}
+</div></article>
+{% endfor %}
+</div>
+{% endblock %}
